@@ -19,19 +19,8 @@
  * ```
  */
 locals {
-  vpc_id    = try(data.aws_subnet.selected[0].vpc_id, data.aws_vpc.default.id)
-  subnet_id = try(data.aws_subnet.selected[0].id, element(data.aws_subnets.default.ids, 0))
-}
-
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
+  vpc_id    = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
+  subnet_id = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
 }
 
 data "aws_subnet" "selected" {
