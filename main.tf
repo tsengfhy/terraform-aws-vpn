@@ -18,17 +18,30 @@
  * terraform destroy --auto-approve
  * ```
  */
+locals {
+  vpc_id    = try(data.aws_subnet.selected[0].vpc_id, data.aws_vpc.default.id)
+  subnet_id = try(data.aws_subnet.selected[0].id, element(data.aws_subnets.default.ids, 0))
+}
+
 data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
+data "aws_subnet" "selected" {
+  count = var.subnet_id != "" ? 1 : 0
+  id    = var.subnet_id
 }
 
 resource "aws_security_group" "this" {
   description = "VPC security group for VPN"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = local.vpc_id
 
   ingress {
     from_port   = 22
@@ -69,7 +82,7 @@ resource "aws_spot_instance_request" "this" {
   user_data                   = templatefile("${path.module}/script/vpn.sh", {
     port = var.vpn_port, password = var.vpn_pwd
   })
-  subnet_id                   = var.subnet_id != "" ? var.subnet_id : element(tolist(data.aws_subnet_ids.default.ids), 0)
+  subnet_id                   = local.subnet_id
   security_groups             = [aws_security_group.this.id]
   associate_public_ip_address = true
   key_name                    = aws_key_pair.this.key_name

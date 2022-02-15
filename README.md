@@ -26,16 +26,16 @@ terraform destroy --auto-approve
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type for bootstrapping. | `string` | `"m5n.large"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to use to bootstrap resources. | `string` | `"ap-northeast-1"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The subnet to use to bootstrap the instance. | `string` | `""` | no |
-| <a name="input_vpn_port"></a> [vpn\_port](#input\_vpn\_port) | VPN port | `number` | `8388` | no |
-| <a name="input_vpn_pwd"></a> [vpn\_pwd](#input\_vpn\_pwd) | VPN password | `string` | `"tsengfhy"` | no |
+| <a name="input_vpn_port"></a> [vpn\_port](#input\_vpn\_port) | The port of VPN | `number` | `8388` | no |
+| <a name="input_vpn_pwd"></a> [vpn\_pwd](#input\_vpn\_pwd) | The password of VPN | `string` | `"tsengfhy"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_vpn_eip"></a> [vpn\_eip](#output\_vpn\_eip) | n/a |
-| <a name="output_vpn_port"></a> [vpn\_port](#output\_vpn\_port) | n/a |
-| <a name="output_vpn_pwd"></a> [vpn\_pwd](#output\_vpn\_pwd) | n/a |
+| <a name="output_vpn_eip"></a> [vpn\_eip](#output\_vpn\_eip) | The public ip of the VPN |
+| <a name="output_vpn_port"></a> [vpn\_port](#output\_vpn\_port) | The port of VPN |
+| <a name="output_vpn_pwd"></a> [vpn\_pwd](#output\_vpn\_pwd) | The password of VPN |
 
 ## Requirements
 
@@ -49,11 +49,12 @@ terraform destroy --auto-approve
 
 | Name | Type |
 |------|------|
-| [aws_key_pair.vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
-| [aws_security_group.vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_spot_instance_request.vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request) | resource |
+| [aws_key_pair.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_spot_instance_request.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request) | resource |
 | [aws_ami.docker](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_subnet_ids.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) | data source |
+| [aws_subnet.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
+| [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
 | [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 
