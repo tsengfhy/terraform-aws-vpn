@@ -19,8 +19,9 @@
  * ```
  */
 locals {
-  vpc_id    = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
-  subnet_id = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
+  vpc_id        = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
+  subnet_id     = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
+  anywhere_cidr = "0.0.0.0/0"
 }
 
 data "aws_subnet" "selected" {
@@ -36,21 +37,21 @@ resource "aws_security_group" "this" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [local.anywhere_cidr]
   }
 
   ingress {
     from_port   = var.vpn_port
     to_port     = var.vpn_port
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [local.anywhere_cidr]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [local.anywhere_cidr]
   }
 }
 
