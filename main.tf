@@ -57,7 +57,7 @@ resource "aws_security_group" "this" {
 
 resource "aws_key_pair" "this" {
   key_name   = "vpn"
-  public_key = file("${path.module}/cert/default.pub")
+  public_key = file("${path.module}/certs/default.pub")
 }
 
 data "aws_ami" "docker" {
@@ -69,7 +69,7 @@ data "aws_ami" "docker" {
 resource "aws_spot_instance_request" "this" {
   ami                         = data.aws_ami.docker.id
   instance_type               = var.instance_type
-  user_data                   = templatefile("${path.module}/script/vpn.sh", {
+  user_data                   = templatefile("${path.module}/scripts/vpn.sh", {
     port = var.vpn_port, password = var.vpn_pwd
   })
   subnet_id                   = local.subnet_id
