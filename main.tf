@@ -18,46 +18,9 @@
  * terraform destroy --auto-approve
  * ```
  */
-locals {
-  vpc_id        = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
-  subnet_id     = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
-  anywhere_cidr = "0.0.0.0/0"
-}
-
-data "aws_subnet" "selected" {
-  count = var.subnet_id != "" ? 1 : 0
-  id    = var.subnet_id
-}
-
-resource "aws_security_group" "this" {
-  description = "VPC security group for VPN"
-  vpc_id      = local.vpc_id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [local.anywhere_cidr]
-  }
-
-  ingress {
-    from_port   = var.vpn_port
-    to_port     = var.vpn_port
-    protocol    = "tcp"
-    cidr_blocks = [local.anywhere_cidr]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [local.anywhere_cidr]
-  }
-}
-
 resource "aws_key_pair" "this" {
   key_name   = "vpn"
-  public_key = file("${path.module}/cert/default.pub")
+  public_key = file("${path.module}/certs/default.pub")
 }
 
 data "aws_ami" "docker" {
@@ -69,7 +32,7 @@ data "aws_ami" "docker" {
 resource "aws_spot_instance_request" "this" {
   ami                         = data.aws_ami.docker.id
   instance_type               = var.instance_type
-  user_data                   = templatefile("${path.module}/script/vpn.sh", {
+  user_data                   = templatefile("${path.module}/scripts/vpn.sh", {
     port = var.vpn_port, password = var.vpn_pwd
   })
   subnet_id                   = local.subnet_id
