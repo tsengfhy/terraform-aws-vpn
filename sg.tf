@@ -3,6 +3,7 @@ locals {
 }
 
 resource "aws_security_group" "this" {
+  name        = "${local.environment}-sg-vpn"
   description = "Security group for VPN"
   vpc_id      = local.vpc_id
 
