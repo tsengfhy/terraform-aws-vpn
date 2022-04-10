@@ -21,7 +21,7 @@ variable "subnet_id" {
 variable "instance_type" {
   description = "The type of instance."
   type        = string
-  default     = "m5n.large"
+  default     = "t3.nano"
 }
 
 variable "vpn_port" {
