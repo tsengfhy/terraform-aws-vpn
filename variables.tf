@@ -7,9 +7,7 @@ variable "region" {
 variable "default_tags" {
   description = "Default tags for all resources."
   type        = map(string)
-  default     = {
-    product = "VPN"
-  }
+  default     = {}
 }
 
 variable "subnet_id" {
@@ -18,8 +16,8 @@ variable "subnet_id" {
   default     = null
 }
 
-variable "instance_type" {
-  description = "The type of instance."
+variable "vpn_instance_type" {
+  description = "The instance type of VPN."
   type        = string
   default     = "t3.nano"
 }
@@ -33,5 +31,4 @@ variable "vpn_port" {
 variable "vpn_pwd" {
   description = "The password of VPN."
   type        = string
-  default     = "tsengfhy"
 }
