@@ -1,4 +1,4 @@
-output "vpn_eip" {
+output "vpn_ip" {
   description = "The public ip of VPN"
   value = aws_spot_instance_request.this.public_ip
 }

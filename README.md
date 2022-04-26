@@ -2,11 +2,11 @@
 # Terraform AWS VPN module
 
 ## Introduction
-This module help you launch an instance with VPN software on AWS automatically.
+This module help you provision an instance with VPN on AWS automatically.
 
 ## Usage
 Install [terraform](https://www.terraform.io/) at first.
-And setup [credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) for AWS cli.
+And setup [credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) for AWS CLI.
 
 StartUp
 ```
@@ -22,18 +22,18 @@ terraform destroy --auto-approve
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags for all resources. | `map(string)` | <pre>{<br>  "product": "VPN"<br>}</pre> | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of instance. | `string` | `"m5n.large"` | no |
-| <a name="input_region"></a> [region](#input\_region) | The region to use to launch resources. | `string` | `"ap-northeast-1"` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The subnet to use to launch a instance. | `string` | `null` | no |
+| <a name="input_vpn_pwd"></a> [vpn\_pwd](#input\_vpn\_pwd) | The password of VPN. | `string` | n/a | yes |
+| <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | The default tags for all resources. | `map(string)` | `{}` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region to provision resources. | `string` | `"ap-northeast-1"` | no |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The subnet to provision an instance. | `string` | `null` | no |
+| <a name="input_vpn_instance_type"></a> [vpn\_instance\_type](#input\_vpn\_instance\_type) | The instance type of VPN. | `string` | `"t3.nano"` | no |
 | <a name="input_vpn_port"></a> [vpn\_port](#input\_vpn\_port) | The port of VPN. | `number` | `8388` | no |
-| <a name="input_vpn_pwd"></a> [vpn\_pwd](#input\_vpn\_pwd) | The password of VPN. | `string` | `"tsengfhy"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_vpn_eip"></a> [vpn\_eip](#output\_vpn\_eip) | The public ip of VPN |
+| <a name="output_vpn_ip"></a> [vpn\_ip](#output\_vpn\_ip) | The public ip of VPN |
 | <a name="output_vpn_port"></a> [vpn\_port](#output\_vpn\_port) | The port of VPN |
 | <a name="output_vpn_pwd"></a> [vpn\_pwd](#output\_vpn\_pwd) | The password of VPN |
 
@@ -41,6 +41,7 @@ terraform destroy --auto-approve
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
 
 
