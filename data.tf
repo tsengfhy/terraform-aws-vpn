@@ -24,6 +24,6 @@ resource "aws_default_subnet" "default" {
 
 data "aws_ami" "selected" {
   owners      = ["amazon"]
-  name_regex  = "^amzn-ami-\\S+-ecs-optimized"
+  name_regex  = "^amzn2-ami-kernel"
   most_recent = true
 }
