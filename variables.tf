@@ -44,3 +44,15 @@ variable "use_ssh" {
   type        = bool
   default     = false
 }
+
+variable "use_dns" {
+  description = "The flag to indicate if to create an A record in desired Hosted Zone for the instance."
+  type        = bool
+  default     = false
+}
+
+variable "hosted_zone_name" {
+  description = "The name of desired Hosted Zone."
+  type        = string
+  default     = null
+}
