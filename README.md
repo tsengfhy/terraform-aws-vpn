@@ -24,6 +24,7 @@ terraform destroy --auto-approve
 |------|-------------|------|---------|:--------:|
 | <a name="input_vpn_pwd"></a> [vpn\_pwd](#input\_vpn\_pwd) | The password of VPN. | `string` | n/a | yes |
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | The default tags for all resources. | `map(string)` | `{}` | no |
+| <a name="input_prefix"></a> [prefix](#input\_prefix) | The naming prefix for all resources. | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to provision resources. | `string` | `"ap-northeast-1"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The subnet to provision an instance. | `string` | `null` | no |
 | <a name="input_use_ssh"></a> [use\_ssh](#input\_use\_ssh) | The flag to indicate if to enable SSH. | `bool` | `false` | no |

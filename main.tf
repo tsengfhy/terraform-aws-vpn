@@ -20,7 +20,7 @@
  */
 resource "aws_key_pair" "this" {
   count      = var.use_ssh ? 1 : 0
-  key_name   = "vpn"
+  key_name   = "${local.prefix}vpn"
   public_key = file("${path.module}/certs/default.pub")
 }
 

@@ -10,6 +10,12 @@ variable "default_tags" {
   default     = {}
 }
 
+variable "prefix" {
+  description = "The naming prefix for all resources."
+  type        = string
+  default     = ""
+}
+
 variable "subnet_id" {
   description = "The subnet to provision an instance."
   type        = string

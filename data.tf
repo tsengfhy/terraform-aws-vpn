@@ -1,7 +1,9 @@
 locals {
+  vpc_id    = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
+  subnet_id = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
+
   anywhere_cidr_block = "0.0.0.0/0"
-  vpc_id              = try(data.aws_subnet.selected[0].vpc_id, aws_default_vpc.default.id)
-  subnet_id           = try(data.aws_subnet.selected[0].id, aws_default_subnet.default[0].id)
+  prefix              = length(var.prefix) == 0 || substr(var.prefix, length(var.prefix) - 1, 1) == "-" ? var.prefix : "${var.prefix}-"
 }
 
 data "aws_subnet" "selected" {
