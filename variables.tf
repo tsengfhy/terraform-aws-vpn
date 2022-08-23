@@ -45,6 +45,12 @@ variable "use_ssh" {
   default     = false
 }
 
+variable "use_ssm" {
+  description = "The flag to indicate if to enable SSM."
+  type        = bool
+  default     = false
+}
+
 variable "use_dns" {
   description = "The flag to indicate if to create an A record in desired Hosted Zone for the instance."
   type        = bool

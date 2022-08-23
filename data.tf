@@ -6,6 +6,10 @@ locals {
   prefix              = length(var.prefix) == 0 || substr(var.prefix, length(var.prefix) - 1, 1) == "-" ? var.prefix : "${var.prefix}-"
 }
 
+data "aws_region" "current" {}
+
+data "aws_caller_identity" "current" {}
+
 data "aws_subnet" "selected" {
   count = var.subnet_id != null ? 1 : 0
   id    = var.subnet_id
