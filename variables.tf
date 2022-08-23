@@ -32,3 +32,9 @@ variable "vpn_pwd" {
   description = "The password of VPN."
   type        = string
 }
+
+variable "use_ssh" {
+  description = "The flag to indicate if to enable SSH."
+  type        = bool
+  default     = false
+}

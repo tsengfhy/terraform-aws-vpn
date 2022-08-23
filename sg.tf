@@ -3,18 +3,24 @@ resource "aws_security_group" "this" {
   description = "Security group for VPN"
   vpc_id      = local.vpc_id
 
-  ingress {
-    protocol    = "icmp"
-    from_port   = -1
-    to_port     = -1
-    cidr_blocks = [local.anywhere_cidr_block]
+  dynamic "ingress" {
+    for_each = var.use_ssh ? [1] : []
+    content {
+      protocol    = "icmp"
+      from_port   = -1
+      to_port     = -1
+      cidr_blocks = [local.anywhere_cidr_block]
+    }
   }
 
-  ingress {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    cidr_blocks = [local.anywhere_cidr_block]
+  dynamic "ingress" {
+    for_each = var.use_ssh ? [1] : []
+    content {
+      protocol    = "tcp"
+      from_port   = 22
+      to_port     = 22
+      cidr_blocks = [local.anywhere_cidr_block]
+    }
   }
 
   ingress {

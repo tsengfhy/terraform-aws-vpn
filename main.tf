@@ -19,6 +19,7 @@
  * ```
  */
 resource "aws_key_pair" "this" {
+  count      = var.use_ssh ? 1 : 0
   key_name   = "vpn"
   public_key = file("${path.module}/certs/default.pub")
 }
@@ -29,7 +30,7 @@ resource "aws_spot_instance_request" "this" {
   subnet_id                   = local.subnet_id
   vpc_security_group_ids      = [aws_security_group.this.id]
   associate_public_ip_address = true
-  key_name                    = aws_key_pair.this.key_name
+  key_name                    = var.use_ssh ? aws_key_pair.this[0].key_name : null
   spot_type                   = "one-time"
   wait_for_fulfillment        = true
 
