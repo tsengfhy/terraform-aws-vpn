@@ -6,7 +6,7 @@ resource "aws_iam_instance_profile" "this" {
 
 resource "aws_iam_role" "instance_profile" {
   count = var.use_ssm ? 1 : 0
-  name  = "${local.prefix}vpn-instance-profile"
+  name  = "${local.prefix}role-vpn-instance-profile"
 
   assume_role_policy  = data.aws_iam_policy_document.ec2_assume_role[0].json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]

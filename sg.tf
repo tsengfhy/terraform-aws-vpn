@@ -1,5 +1,5 @@
 resource "aws_security_group" "this" {
-  name        = "${local.prefix}vpn"
+  name        = "${local.prefix}sg-vpn"
   description = "Security group for VPN"
   vpc_id      = local.vpc_id
 
