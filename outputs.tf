@@ -1,5 +1,5 @@
 output "vpn_domain" {
-  description = "The domain name of VPN if use DNS."
+  description = "The domain name of VPN if use DNS"
   value       = var.use_dns ? aws_route53_record.this[0].name : ""
 }
 

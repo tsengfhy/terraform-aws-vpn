@@ -1,18 +1,19 @@
 resource "aws_iam_instance_profile" "this" {
   count = var.use_ssm ? 1 : 0
-  name  = aws_iam_role.instance_profile[0].name
-  role  = aws_iam_role.instance_profile[0].name
+
+  name = aws_iam_role.instance_profile[0].name
+  role = aws_iam_role.instance_profile[0].name
 }
 
 resource "aws_iam_role" "instance_profile" {
   count = var.use_ssm ? 1 : 0
-  name  = "${local.prefix}role-vpn-instance-profile"
 
-  assume_role_policy  = data.aws_iam_policy_document.ec2_assume_role[0].json
+  name                = "${local.workspace}-${var.product}-instance-profile-role"
+  assume_role_policy  = data.aws_iam_policy_document.assume_role[0].json
   managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
 
   inline_policy {
-    name = "ssmEncryptAccess"
+    name = "SSMEncryptAccess"
     policy = jsonencode({
       Statement = [
         {
@@ -43,7 +44,7 @@ resource "aws_iam_role" "instance_profile" {
   }
 }
 
-data "aws_iam_policy_document" "ec2_assume_role" {
+data "aws_iam_policy_document" "assume_role" {
   count = var.use_ssm ? 1 : 0
 
   statement {

@@ -1,10 +1,12 @@
 data "aws_route53_zone" "selected" {
   count = var.use_dns ? 1 : 0
-  name  = var.hosted_zone_name
+
+  name = var.hosted_zone_name
 }
 
 resource "aws_route53_record" "this" {
-  count   = var.use_dns ? 1 : 0
+  count = var.use_dns ? 1 : 0
+
   zone_id = data.aws_route53_zone.selected[0].zone_id
   name    = "vpn.${data.aws_route53_zone.selected[0].name}"
   type    = "A"

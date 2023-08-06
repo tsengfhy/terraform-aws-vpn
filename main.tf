@@ -19,8 +19,9 @@
  * ```
  */
 resource "aws_key_pair" "this" {
-  count      = var.use_ssh ? 1 : 0
-  key_name   = "${local.prefix}key-vpn"
+  count = var.use_ssh ? 1 : 0
+
+  key_name   = "${local.workspace}-${var.product}"
   public_key = file("${path.module}/certs/default.pub")
 }
 
@@ -34,9 +35,10 @@ resource "aws_spot_instance_request" "this" {
   wait_for_fulfillment        = true
 
   key_name             = var.use_ssh ? aws_key_pair.this[0].key_name : null
-  iam_instance_profile = var.use_ssm ? aws_iam_instance_profile.this[0].name : null
+  iam_instance_profile = var.use_ssm ? split("/", aws_iam_instance_profile.this[0].arn)[1] : null
 
-  user_data = templatefile("${path.module}/resources/vpn.sh.tpl", {
+  user_data = templatefile("${path.module}/resources/bootstrap.sh.tpl", {
+    user     = var.use_ssm ? "ssm-user" : "ec2-user",
     port     = var.vpn_port,
     password = var.vpn_pwd,
   })
