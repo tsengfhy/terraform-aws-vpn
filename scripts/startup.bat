@@ -4,4 +4,6 @@ cd ..
 
 terraform apply --auto-approve
 
+ipconfig/flushdns
+
 pause
