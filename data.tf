@@ -15,3 +15,9 @@ data "aws_ami" "selected" {
   name_regex  = "^amzn2-ami-kernel"
   most_recent = true
 }
+
+data "aws_iam_instance_profile" "selected" {
+  count = var.vpn_instance_profile_name != null ? 1 : 0
+
+  name = var.vpn_instance_profile_name
+}

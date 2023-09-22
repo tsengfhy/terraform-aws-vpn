@@ -28,6 +28,12 @@ variable "vpn_instance_type" {
   default     = "t3.nano"
 }
 
+variable "vpn_instance_profile_name" {
+  description = "The name of instance profile for VPN instance"
+  type        = string
+  default     = null
+}
+
 variable "vpn_port" {
   description = "The port of VPN"
   type        = number
@@ -41,12 +47,6 @@ variable "vpn_pwd" {
 
 variable "use_ssh" {
   description = "The flag to indicate if to enable SSH"
-  type        = bool
-  default     = false
-}
-
-variable "use_ssm" {
-  description = "The flag to indicate if to enable SSM"
   type        = bool
   default     = false
 }

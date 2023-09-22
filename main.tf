@@ -35,10 +35,10 @@ resource "aws_spot_instance_request" "this" {
   wait_for_fulfillment        = true
 
   key_name             = var.use_ssh ? aws_key_pair.this[0].key_name : null
-  iam_instance_profile = var.use_ssm ? split("/", aws_iam_instance_profile.this[0].arn)[1] : null
+  iam_instance_profile = var.vpn_instance_profile_name != null ? split("/", data.aws_iam_instance_profile.selected[0].arn)[1] : null
 
   user_data = templatefile("${path.module}/resources/bootstrap.sh.tpl", {
-    user     = var.use_ssm ? "ssm-user" : "ec2-user",
+    user     = var.use_ssh ? "ec2-user" : "ssm-user",
     port     = var.vpn_port,
     password = var.vpn_pwd,
   })
