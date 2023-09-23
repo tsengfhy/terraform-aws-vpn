@@ -26,8 +26,8 @@ resource "aws_key_pair" "this" {
 }
 
 resource "aws_spot_instance_request" "this" {
-  ami                         = data.aws_ami.selected.id
-  instance_type               = var.vpn_instance_type
+  ami                         = data.aws_ssm_parameter.ami.value
+  instance_type               = var.instance_type
   subnet_id                   = local.subnet_id
   vpc_security_group_ids      = [aws_security_group.this.id]
   associate_public_ip_address = true
@@ -35,11 +35,11 @@ resource "aws_spot_instance_request" "this" {
   wait_for_fulfillment        = true
 
   key_name             = var.use_ssh ? aws_key_pair.this[0].key_name : null
-  iam_instance_profile = var.vpn_instance_profile_name != null ? split("/", data.aws_iam_instance_profile.selected[0].arn)[1] : null
+  iam_instance_profile = var.instance_profile_name != null ? split("/", data.aws_iam_instance_profile.selected[0].arn)[1] : null
 
   user_data = templatefile("${path.module}/resources/bootstrap.sh.tpl", {
     user     = var.use_ssh ? "ec2-user" : "ssm-user",
-    port     = var.vpn_port,
-    password = var.vpn_pwd,
+    port     = var.port,
+    password = var.password,
   })
 }

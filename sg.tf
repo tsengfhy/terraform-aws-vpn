@@ -8,8 +8,8 @@ resource "aws_security_group_rule" "inbound" {
   security_group_id = aws_security_group.this.id
   type              = "ingress"
   protocol          = "tcp"
-  from_port         = var.vpn_port
-  to_port           = var.vpn_port
+  from_port         = var.port
+  to_port           = var.port
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
