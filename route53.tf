@@ -2,6 +2,13 @@ data "aws_route53_zone" "selected" {
   count = var.use_dns ? 1 : 0
 
   name = var.hosted_zone_name
+
+  lifecycle {
+    precondition {
+      condition     = var.hosted_zone_name != null
+      error_message = "The Hosted Zone name can not be null if enable DNS"
+    }
+  }
 }
 
 resource "aws_route53_record" "this" {

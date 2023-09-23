@@ -58,13 +58,13 @@ variable "use_ssh" {
 }
 
 variable "use_dns" {
-  description = "The flag to indicate if to create an A record in the desired Hosted Zone for the VPN"
+  description = "The flag to indicate if to create a hostname for the VPN"
   type        = bool
   default     = false
 }
 
 variable "hosted_zone_name" {
-  description = "The desired Hosted Zone name"
+  description = "The Hosted Zone name"
   type        = string
   default     = null
 }
