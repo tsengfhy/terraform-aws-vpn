@@ -4,10 +4,19 @@ resource "aws_security_group" "this" {
   vpc_id      = local.vpc_id
 }
 
-resource "aws_security_group_rule" "inbound" {
+resource "aws_security_group_rule" "tcp" {
   security_group_id = aws_security_group.this.id
   type              = "ingress"
   protocol          = "tcp"
+  from_port         = var.port
+  to_port           = var.port
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "udp" {
+  security_group_id = aws_security_group.this.id
+  type              = "ingress"
+  protocol          = "udp"
   from_port         = var.port
   to_port           = var.port
   cidr_blocks       = ["0.0.0.0/0"]
