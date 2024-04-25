@@ -68,3 +68,9 @@ variable "hosted_zone_name" {
   type        = string
   default     = null
 }
+
+variable "use_ipv6" {
+  description = "The flag to indicate if to enable ipv6"
+  type        = bool
+  default     = false
+}

@@ -1,5 +1,8 @@
 locals {
   workspace = terraform.workspace
+
+  anywhere_cidr      = "0.0.0.0/0"
+  anywhere_ipv6_cidr = "::/0"
 }
 
 data "aws_region" "current" {}
@@ -11,6 +14,7 @@ data "aws_availability_zones" "available" {
 data "aws_ssm_parameter" "ami" {
   name = var.ami_parameter_name
 }
+
 data "aws_iam_instance_profile" "selected" {
   count = var.instance_profile_name != null ? 1 : 0
 

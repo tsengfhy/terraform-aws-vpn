@@ -32,6 +32,7 @@ terraform destroy --auto-approve
 | <a name="input_product"></a> [product](#input\_product) | The VPN name | `string` | `"vpn"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to provision the VPN, default is Tokyo | `string` | `"ap-northeast-1"` | no |
 | <a name="input_use_dns"></a> [use\_dns](#input\_use\_dns) | The flag to indicate if to create a hostname for the VPN | `bool` | `false` | no |
+| <a name="input_use_ipv6"></a> [use\_ipv6](#input\_use\_ipv6) | The flag to indicate if to enable ipv6 | `bool` | `false` | no |
 | <a name="input_use_ssh"></a> [use\_ssh](#input\_use\_ssh) | The flag to indicate if to enable SSH | `bool` | `false` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC to provision the VPN, use the default VPC if missing | `string` | `null` | no |
 
@@ -56,6 +57,7 @@ terraform destroy --auto-approve
 
 | Name | Type |
 |------|------|
+| [aws_default_route_table.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table) | resource |
 | [aws_default_subnet.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_subnet) | resource |
 | [aws_default_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_vpc) | resource |
 | [aws_key_pair.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
@@ -69,6 +71,7 @@ terraform destroy --auto-approve
 | [aws_spot_instance_request.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/spot_instance_request) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_iam_instance_profile.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_instance_profile) | data source |
+| [aws_internet_gateway.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/internet_gateway) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_route53_zone.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 | [aws_ssm_parameter.ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |

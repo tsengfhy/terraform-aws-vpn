@@ -15,8 +15,8 @@ resource "aws_route53_record" "this" {
   count = var.use_dns ? 1 : 0
 
   zone_id = data.aws_route53_zone.selected[0].zone_id
-  name    = "vpn.${data.aws_route53_zone.selected[0].name}"
-  type    = "A"
+  name    = "${var.product}.${data.aws_route53_zone.selected[0].name}"
+  type    = var.use_ipv6 ? "AAAA" : "A"
   ttl     = 300
-  records = [aws_spot_instance_request.this.public_ip]
+  records = [local.ip]
 }

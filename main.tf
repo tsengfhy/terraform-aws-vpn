@@ -18,6 +18,10 @@
  * terraform destroy --auto-approve
  * ```
  */
+locals {
+  ip = var.use_ipv6 ? aws_spot_instance_request.this.ipv6_addresses[0] : aws_spot_instance_request.this.public_ip
+}
+
 resource "aws_key_pair" "this" {
   count = var.use_ssh ? 1 : 0
 
@@ -30,7 +34,8 @@ resource "aws_spot_instance_request" "this" {
   instance_type               = var.instance_type
   subnet_id                   = local.subnet_id
   vpc_security_group_ids      = [aws_security_group.this.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = !var.use_ipv6
+  ipv6_address_count          = var.use_ipv6 ? 1 : 0
   spot_type                   = "one-time"
   wait_for_fulfillment        = true
 

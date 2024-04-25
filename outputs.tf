@@ -5,7 +5,7 @@ output "hostname" {
 
 output "ip" {
   description = "The VPN public ip"
-  value       = aws_spot_instance_request.this.public_ip
+  value       = local.ip
 }
 
 output "port" {
