@@ -1,7 +1,7 @@
-variable "product" {
-  description = "The VPN name"
+variable "region" {
+  description = "The region to provision the VPN, default is Tokyo"
   type        = string
-  default     = "vpn"
+  default     = "ap-northeast-1"
 }
 
 variable "default_tags" {
@@ -10,10 +10,10 @@ variable "default_tags" {
   default     = {}
 }
 
-variable "region" {
-  description = "The region to provision the VPN, default is Tokyo"
+variable "name" {
+  description = "The VPN name"
   type        = string
-  default     = "ap-northeast-1"
+  default     = "vpn"
 }
 
 variable "vpc_id" {
@@ -25,7 +25,7 @@ variable "vpc_id" {
 variable "ami_parameter_name" {
   description = "The parameter name for the instance AMI, use the latest kernel AMI as default"
   type        = string
-  default     = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+  default     = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
 }
 
 variable "instance_type" {
@@ -63,8 +63,8 @@ variable "use_dns" {
   default     = false
 }
 
-variable "hosted_zone_name" {
-  description = "The Hosted Zone name"
+variable "domain" {
+  description = "The domain name"
   type        = string
   default     = null
 }

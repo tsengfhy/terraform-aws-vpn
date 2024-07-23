@@ -23,13 +23,13 @@ terraform destroy --auto-approve
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_password"></a> [password](#input\_password) | The VPN password | `string` | n/a | yes |
-| <a name="input_ami_parameter_name"></a> [ami\_parameter\_name](#input\_ami\_parameter\_name) | The parameter name for the instance AMI, use the latest kernel AMI as default | `string` | `"/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"` | no |
+| <a name="input_ami_parameter_name"></a> [ami\_parameter\_name](#input\_ami\_parameter\_name) | The parameter name for the instance AMI, use the latest kernel AMI as default | `string` | `"/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"` | no |
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | The default tags for the VPN | `map(string)` | `{}` | no |
-| <a name="input_hosted_zone_name"></a> [hosted\_zone\_name](#input\_hosted\_zone\_name) | The Hosted Zone name | `string` | `null` | no |
+| <a name="input_domain"></a> [domain](#input\_domain) | The domain name | `string` | `null` | no |
 | <a name="input_instance_profile_name"></a> [instance\_profile\_name](#input\_instance\_profile\_name) | The instance profile name | `string` | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type | `string` | `"t3.nano"` | no |
+| <a name="input_name"></a> [name](#input\_name) | The VPN name | `string` | `"vpn"` | no |
 | <a name="input_port"></a> [port](#input\_port) | The VPN port | `number` | `8388` | no |
-| <a name="input_product"></a> [product](#input\_product) | The VPN name | `string` | `"vpn"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region to provision the VPN, default is Tokyo | `string` | `"ap-northeast-1"` | no |
 | <a name="input_use_dns"></a> [use\_dns](#input\_use\_dns) | The flag to indicate if to create a hostname for the VPN | `bool` | `false` | no |
 | <a name="input_use_ssh"></a> [use\_ssh](#input\_use\_ssh) | The flag to indicate if to enable SSH | `bool` | `false` | no |
