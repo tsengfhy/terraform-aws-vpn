@@ -2,4 +2,4 @@
 
 cd ..
 
-terraform destroy --auto-approve
+terraform destroy -target aws_spot_instance_request.this --auto-approve
